@@ -204,7 +204,14 @@ def get_user_and_repo(URL):
     return user,repo
 
 if __name__ == '__main__':
-    PUBLIC_URL = sys.argv[1]
+    try:
+        PUBLIC_URL = sys.argv[1]
+        if 'github.com' not in PUBLIC_URL:
+            sys.exit()
+    except IndexError:
+        print('Enter public repository url')
+        sys.exit()
+
     user,repo = get_user_and_repo(PUBLIC_URL)
     URL = 'https://api.github.com/repos/{}/{}'.format(user,repo)
     try:
